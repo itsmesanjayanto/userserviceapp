@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:svm="sap.ui.comp.smartvariants">
+    <Dialog id="dialogID" afterClose="onAfterclose" beforeOpen="onBeforeOpen">
+       
+		<beginButton>
+			<Button tooltip="Add" icon="sap-icon://accept" type="Accept" press=".onAddRoleBtn"/>
+		</beginButton>
+		<endButton>
+			<Button tooltip="Cancel" icon="sap-icon://cancel" type="Reject" press=".onCloseBtn"/>
+		</endButton>
+
+        <!-- <SearchField width="90%" class="sapUiSmallMargin" /> -->
+
+        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search="onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+            <fb:filterItems>
+                <fb:FilterItem name="System" label="System">
+                    <fb:control>
+                        <MultiComboBox id="combobox" name="System" selectionChange=".onSelectionChange" items="{
+												path: '/Systems',
+												templateShareable: true
+											}">
+                            <core:Item  key="{ID}" text="{name}" />
+                        </MultiComboBox>
+                    </fb:control>
+                </fb:FilterItem>
+            </fb:filterItems>
+        </fb:FilterBar>
+        	<!-- <f:content> -->
+				<Table
+					id="table"
+					inset="false"
+                    mode="MultiSelect"
+					rememberSelections="false"
+					items="{
+						path: '/Groups'
+					}"
+				>
+					<columns>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="Role Name"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="System"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="Role Description"/>
+						</Column>
+					</columns>
+
+					<items>
+						<ColumnListItem vAlign="Middle">
+							<cells>
+								<ObjectIdentifier title="{id}" text="" />
+								<Text text="{systemName}" />
+								<Text text="{description}" />
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			<!-- </f:content> -->
+    </Dialog>
+</core:FragmentDefinition>

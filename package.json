@@ -1,0 +1,101 @@
+{
+	"name": "usermanage",
+	"version": "1.0.0",
+	"description": "A simple CAP project.",
+	"repository": "<Add your repository here>",
+	"license": "UNLICENSED",
+	"private": true,
+	"dependencies": {
+		"@sap-cloud-sdk/http-client": "^3.26.4",
+		"@sap-cloud-sdk/resilience": "^3",
+		"@sap-cloud-sdk/util": "^2.11.0",
+		"@sap/cds": "^9.2.0",
+		"@sap/xsenv": "^6.0.0",
+		"@sap/xssec": "^4",
+		"express": "^4",
+		"hdb": "^0.19.0",
+		"jwt-decode": "^3.1.2",
+		"passport": "^0.6.0"
+	},
+	"devDependencies": {
+		"@cap-js/sqlite": "^2.0.2",
+		"@sap/ux-specification": "^1.102.14",
+		"rimraf": "^3.0.2",
+		"sqlite3": "^5.0.4",
+		"@sap/dev-cap-tools": "^1.31.0"
+	},
+	"scripts": {
+		"start": "cds-serve",
+		"watch-userserviceui": "cds watch --open userserviceui/webapp/index.html?sap-ui-xx-viewCache=false",
+		"undeploy": "cf undeploy usermanage --delete-services --delete-service-keys --delete-service-brokers",
+		"build": "rimraf resources mta_archives && mbt build --mtar archive",
+		"deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+	},
+	"engines": {
+		"node": "^18"
+	},
+	"eslintConfig": {
+		"extends": "eslint:recommended",
+		"env": {
+			"es2020": true,
+			"node": true,
+			"jest": true,
+			"mocha": true
+		},
+		"globals": {
+			"SELECT": true,
+			"INSERT": true,
+			"UPDATE": true,
+			"DELETE": true,
+			"CREATE": true,
+			"DROP": true,
+			"CDL": true,
+			"CQL": true,
+			"CXL": true,
+			"cds": true
+		},
+		"rules": {
+			"no-console": "off",
+			"require-atomic-updates": "off"
+		}
+	},
+	"cds": {
+		"requires": {
+			"Authorization": {
+				"kind": "rest",
+				"model": "srv/external/AuthorizationAPI"
+			},
+			"User.Management._System.for.Cross.domain.Identity.Management._SCIM__": {
+				"kind": "rest",
+				"model": "srv/external/PlatformAPI",
+				"[production]": {
+					"credentials": {
+						"destination": "WZ_UAA_SRV"
+					}
+				}
+			},
+			"citwzdb": {
+				"kind": "rest",
+				"model": "srv/external/citwzdb",
+				"[production]": {
+					"credentials": {
+						"destination": "wztooldbsystems"
+					}
+				}
+			},
+			"[production]": {
+				"auth": "xsuaa",
+				"restrict_all_services": false
+			},
+			"approuter": {
+        "kind": "cloudfoundry"
+      }
+		},
+		"server": {
+			"index": true
+		}
+	},
+	"sapux": [
+		"app/userserviceui"
+	]
+}

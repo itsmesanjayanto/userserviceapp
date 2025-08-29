@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="UserService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Users" EntityType="UserService.Users"/>
+                <EntitySet Name="Groups" EntityType="UserService.Groups"/>
+                <EntitySet Name="UserGroups" EntityType="UserService.UserGroups"/>
+                <FunctionImport Name="UsersFn" Function="UserService.UsersFn"/>
+                <FunctionImport Name="GroupsFn" Function="UserService.GroupsFn"/>
+                <ActionImport Name="updateGroups" Action="UserService.updateGroups"/>
+            </EntityContainer>
+            <EntityType Name="Users">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+                <Property Name="externalId" Type="Edm.String"/>
+                <Property Name="userName" Type="Edm.String"/>
+                <Property Name="groups" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Group)" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Groups">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+                <Property Name="meta_attributes" Type="Collection(Edm.String)" Nullable="false"/>
+                <Property Name="meta_version" Type="Edm.Int32"/>
+                <Property Name="meta_created" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="meta_lastModified" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="displayName" Type="Edm.String"/>
+                <Property Name="zoneId" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="members" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMember)" Nullable="false"/>
+                <Property Name="schemas" Type="Collection(Edm.String)" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="UserGroups">
+                <Key>
+                    <PropertyRef Name="value"/>
+                </Key>
+                <Property Name="value" Type="Edm.String" Nullable="false"/>
+                <Property Name="display" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+            </EntityType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Group">
+                <Property Name="display" Type="Edm.String"/>
+                <Property Name="value" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMember">
+                <Property Name="origin" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+                <Property Name="value" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUsers">
+                <Property Name="resources" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser)" Nullable="false"/>
+                <Property Name="startIndex" Type="Edm.Int32" DefaultValue="1"/>
+                <Property Name="itemsPerPage" Type="Edm.Int32" DefaultValue="100"/>
+                <Property Name="totalResults" Type="Edm.Int32"/>
+                <Property Name="schemas" Type="Collection(Edm.String)" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser">
+                <Property Name="id" Type="Edm.String"/>
+                <Property Name="externalId" Type="Edm.String"/>
+                <Property Name="meta" Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimMeta"/>
+                <Property Name="userName" Type="Edm.String"/>
+                <Property Name="name" Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Name"/>
+                <Property Name="emails" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Email)" Nullable="false"/>
+                <Property Name="groups" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Group)" Nullable="false"/>
+                <Property Name="approvals" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Approval)" Nullable="false"/>
+                <Property Name="active" Type="Edm.Boolean"/>
+                <Property Name="verified" Type="Edm.Boolean"/>
+                <Property Name="origin" Type="Edm.String"/>
+                <Property Name="zoneId" Type="Edm.String"/>
+                <Property Name="displayName" Type="Edm.String"/>
+                <Property Name="locale" Type="Edm.String"/>
+                <Property Name="nickName" Type="Edm.String"/>
+                <Property Name="passwordLastModified" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="previousLogonTime" Type="Edm.Int64"/>
+                <Property Name="lastLogonTime" Type="Edm.Int64"/>
+                <Property Name="schemas" Type="Collection(Edm.String)" Nullable="false"/>
+                <Property Name="phoneNumbers" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_PhoneNumber)" Nullable="false"/>
+                <Property Name="preferredLanguage" Type="Edm.String"/>
+                <Property Name="profileUrl" Type="Edm.String"/>
+                <Property Name="salt" Type="Edm.String"/>
+                <Property Name="timezone" Type="Edm.String"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="userType" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimMeta">
+                <Property Name="attributes" Type="Collection(Edm.String)" Nullable="false"/>
+                <Property Name="version" Type="Edm.Int32"/>
+                <Property Name="created" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="lastModified" Type="Edm.DateTimeOffset" Precision="7"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Name">
+                <Property Name="familyName" Type="Edm.String"/>
+                <Property Name="givenName" Type="Edm.String"/>
+                <Property Name="honorificPrefix" Type="Edm.String"/>
+                <Property Name="honorificSuffix" Type="Edm.String"/>
+                <Property Name="formatted" Type="Edm.String"/>
+                <Property Name="middleName" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Email">
+                <Property Name="type" Type="Edm.String"/>
+                <Property Name="value" Type="Edm.String"/>
+                <Property Name="primary" Type="Edm.Boolean"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Approval">
+                <Property Name="clientId" Type="Edm.String"/>
+                <Property Name="expiresAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="lastUpdatedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="scope" Type="Edm.String"/>
+                <Property Name="status" Type="Edm.String"/>
+                <Property Name="userId" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_PhoneNumber">
+                <Property Name="value" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroups">
+                <Property Name="resources" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup)" Nullable="false"/>
+                <Property Name="startIndex" Type="Edm.Int32" DefaultValue="1"/>
+                <Property Name="itemsPerPage" Type="Edm.Int32" DefaultValue="100"/>
+                <Property Name="totalResults" Type="Edm.Int32"/>
+                <Property Name="schemas" Type="Collection(Edm.String)" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup">
+                <Property Name="id" Type="Edm.String"/>
+                <Property Name="meta" Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimMeta"/>
+                <Property Name="displayName" Type="Edm.String"/>
+                <Property Name="zoneId" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="members" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMember)" Nullable="false"/>
+                <Property Name="schemas" Type="Collection(Edm.String)" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch">
+                <Property Name="id" Type="Edm.String"/>
+                <Property Name="meta" Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimMeta"/>
+                <Property Name="displayName" Type="Edm.String"/>
+                <Property Name="zoneId" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="members" Type="Collection(UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMemberPatch)" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMemberPatch">
+                <Property Name="origin" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+                <Property Name="value" Type="Edm.String"/>
+                <Property Name="operation" Type="Edm.String"/>
+            </ComplexType>
+            <Function Name="UsersFn" IsBound="false" IsComposable="false">
+                <ReturnType Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUsers"/>
+            </Function>
+            <Function Name="GroupsFn" IsBound="false" IsComposable="false">
+                <ReturnType Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroups"/>
+            </Function>
+            <Action Name="updateGroups" IsBound="false">
+                <Parameter Name="Id" Type="Edm.String"/>
+                <Parameter Name="body" Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch"/>
+                <ReturnType Type="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch"/>
+            </Action>
+            <Annotations Target="UserService.EntityContainer/Users">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.EntityContainer/Groups">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.Groups/meta_attributes">
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.Groups/meta_version">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" Int="1"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.Groups/meta_created">
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.Groups/meta_lastModified">
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.EntityContainer/UserGroups">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.updateGroups()/body">
+                <Annotation Term="Common.Label" String="ScimGroupPatch"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Group">
+                <Annotation Term="Common.Label" String="Group"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Group/display">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="Administrators"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Group/value">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="Administrators"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Group/type">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="DIRECT"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Membership type. DIRECT means the user is directly associated with the group. INDIRECT means that the membership is derived from a nested group."/>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="DIRECT"/>
+                            <PropertyValue Property="Value" String="DIRECT"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="INDIRECT"/>
+                            <PropertyValue Property="Value" String="INDIRECT"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMember">
+                <Annotation Term="Common.Label" String="ScimGroupMember"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMember/origin">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="sap.default"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The identity provider hosting the users. For the default identity provider, use sap.default. Subaccounts created before October 2020 return ldap as the default identity provider. The system accepts both sap.default and ldap for the default identity provider, but returns sap.default or ldap depending on when the subaccount was created."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMember/type">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="USER"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="USER"/>
+                            <PropertyValue Property="Value" String="USER"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMember/value">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="ef4772b9-3295-4d12-af66-ef07fce21227"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The ID of a specific user. User IDs can be found using the &quot;/Users&quot; endpoint."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUsers/startIndex">
+                <Annotation Term="Core.Description" String="Specifies the index of the first response page in the current set of search results."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUsers/itemsPerPage">
+                <Annotation Term="Core.Description" String="Specifies the maximum number of search results returned per response page."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUsers/totalResults">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" Int="235"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Specifies the total number of results matching the query. The service returns a maximum of 500 results."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser">
+                <Annotation Term="Common.Label" String="ScimUser"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/id">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="ef4772b9-3295-4d12-af66-ef07fce21227"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The user ID of a SCIM user."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/externalId">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="D123456"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/meta">
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/userName">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="john.miller@example.com"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/approvals">
+                <Annotation Term="Core.Description" String="A list of approval decisions made by this user. Approvals record the user's explicit approval or rejection for an application's request for delegated permissions."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/origin">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="sap.default"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The identity provider hosting the users. For the default identity provider, use sap.default. Subaccounts created before October 2020 return ldap as the default identity provider. The system accepts both sap.default and ldap for the default identity provider, but returns sap.default or ldap depending on when the subaccount was created."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/zoneId">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="5cef7d08-471e-47c4-9695-ad5ef44b4355"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/previousLogonTime">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" Int="1588056537011"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimUser/lastLogonTime">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" Int="1589284136890"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimMeta">
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimMeta/version">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" Int="1"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Name/familyName">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="Miller"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Name/givenName">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="John"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Email">
+                <Annotation Term="Common.Label" String="Email"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Email/value">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="john.miller@example.com"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Email/primary">
+                <Annotation Term="Core.Description" String="Set to true if this is the user's primary email address."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Approval">
+                <Annotation Term="Common.Label" String="Approval"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Approval/clientId">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="cloud_controller"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The client id on the approval. Represents the application this approval or denial was for."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Approval/scope">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="cloud_controller.write"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Approval/status">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="APPROVED"/>
+                            <PropertyValue Property="Value" String="APPROVED"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="DENIED"/>
+                            <PropertyValue Property="Value" String="DENIED"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_Approval/userId">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="ef4772b9-3295-4d12-af66-ef07fce21227"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The ID of the user."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_PhoneNumber">
+                <Annotation Term="Common.Label" String="PhoneNumber"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_PhoneNumber/value">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="123456789"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroups/startIndex">
+                <Annotation Term="Core.Description" String="Specifies the index of the first resource in the current set of search results."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroups/itemsPerPage">
+                <Annotation Term="Core.Description" String="Specifies the maximum number of search results returned per response page."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroups/totalResults">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" Int="235"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Specifies the total number of results matching the query. The service returns a maximum of 500 results."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup">
+                <Annotation Term="Common.Label" String="ScimGroup"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup/id">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="Administrators"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The group ID of a SCIM group."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup/meta">
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup/displayName">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="Administrators"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup/zoneId">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="5cef7d08-471e-47c4-9695-ad5ef44b4355"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroup/description">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="This role collection includes the administrator and viewer role."/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch">
+                <Annotation Term="Common.Label" String="ScimGroupPatch"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch/id">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="Administrators"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The group ID of a SCIM group."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch/meta">
+                <Annotation Term="Common.Label" String="ScimMeta"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch/displayName">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="Administrators"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch/zoneId">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="5cef7d08-471e-47c4-9695-ad5ef44b4355"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupPatch/description">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="This role collection includes the administrator and viewer role."/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMemberPatch">
+                <Annotation Term="Common.Label" String="ScimGroupMemberPatch"/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMemberPatch/origin">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="sap.default"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The identity provider hosting the user. For the default identity provider, use sap.default. Subaccounts created before October 2020 return ldap as the default identity provider. The system accepts both sap.default and ldap for the default identity provider, but returns sap.default or ldap depending on when the subaccount was created."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMemberPatch/type">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="USER"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="USER"/>
+                            <PropertyValue Property="Value" String="USER"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMemberPatch/value">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="ef4772b9-3295-4d12-af66-ef07fce21227"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="The ID of a specific user. User IDs can be found using the &quot;/Users&quot; endpoint."/>
+            </Annotations>
+            <Annotations Target="UserService.User_Management__System_for_Cross_domain_Identity_Management__SCIM___types_ScimGroupMemberPatch/operation">
+                <Annotation Term="Core.Example">
+                    <Record Type="Core.PrimitiveExampleValue">
+                        <PropertyValue Property="Value" String="delete"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Use this parameter to add or remove users from a group."/>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="delete"/>
+                            <PropertyValue Property="Value" String="delete"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="create"/>
+                            <PropertyValue Property="Value" String="create"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

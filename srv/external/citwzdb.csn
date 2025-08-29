@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "creator": "cds-dk 6.3.1"
+  },
+  "$version": "2.0",
+  "definitions": {
+    "citwzdb.systemsinfo": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "elements": {
+        "createdAt": {
+          "notNull": false,
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@Core.Computed": true,
+          "@Common.Label": "Created On"
+        },
+        "createdBy": {
+          "notNull": false,
+          "type": "cds.String",
+          "length": 255,
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@Core.Computed": true,
+          "doc": "User's unique ID",
+          "@Common.Label": "Created By"
+        },
+        "modifiedAt": {
+          "notNull": false,
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@UI.HiddenFilter": true,
+          "@Core.Computed": true,
+          "@Common.Label": "Changed On"
+        },
+        "modifiedBy": {
+          "notNull": false,
+          "type": "cds.String",
+          "length": 255,
+          "@UI.HiddenFilter": true,
+          "@Core.Computed": true,
+          "doc": "User's unique ID",
+          "@Common.Label": "Changed By"
+        },
+        "ID": {
+          "key": true,
+          "notNull": true,
+          "type": "cds.String",
+          "length": 20
+        },
+        "subAccount": {
+          "key": true,
+          "notNull": true,
+          "type": "cds.String",
+          "length": 50
+        },
+        "name": {
+          "notNull": false,
+          "type": "cds.String",
+          "length": 50
+        },
+        "dtDestination": {
+          "notNull": false,
+          "type": "cds.String",
+          "length": 50
+        },
+        "rtDestination": {
+          "notNull": false,
+          "type": "cds.String",
+          "length": 50
+        }
+      }
+    },
+    "citwzdb": {
+      "kind": "service",
+      "@cds.external": true
+    }
+  }
+}

@@ -1,0 +1,888 @@
+{
+  "definitions": {
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__": {
+      "kind": "service",
+      "@Capabilities.BatchSupported": false,
+      "@Capabilities.KeyAsSegmentSupported": true,
+      "@Core.Description": "User Management (System for Cross-domain Identity Management (SCIM))",
+      "@Core.SchemaVersion": "1.0.0",
+      "@Core.LongDescription": "Provides functions to administrate the Authorization and Trust Management service (XSUAA) of SAP BTP, Cloud Foundry environment. You can provision users from identity providers and manage roles and role collections. Use this API to manage shadow users; users the service provisions from your identity provider to the subaccount.\nFor more information, see [Switch Off Automatic Creation of Shadow Users](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/d8525671e8b14147b96ef497e1e1af80.html).\nThe System for Cross-domain Identity Management (SCIM) interfaces for users and groups supplement the relevant UAA [users](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#users)and [groups](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#groups) interfaces. Groups in the Authorization and Trust Management service are mapped to role collections. See also [SAP Note 2760424]( https://launchpad.support.sap.com/#/notes/2760424).\nTo enable access to this API, create an OAuth 2.0 client for the XSUAA service instance. To create the client, enable the apiaccess plan.\nFor more information, see [Access UAA Admin APIs](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/ebc9113a520e495ea5fb759b9a7929f2.html)."
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Groups": {
+      "kind": "function",
+      "params": {
+        "count": {
+          "@description": "Specifies the maximum number of search results per page. The default value is 100. The service returns a maximum of 500 results.",
+          "type": "cds.Integer",
+          "@openapi.in": "query"
+        },
+        "startIndex": {
+          "@description": "Specifies the index of the first resource in the current set of search results. Default value is 1.",
+          "type": "cds.Integer",
+          "@openapi.in": "query"
+        },
+        "sortOrder": {
+          "@description": "Specifies the sort order for the query results either ascending or descending for the attribute defined by the sortBy parameter. The default value is ascending.",
+          "type": "cds.String",
+          "@openapi.in": "query"
+        },
+        "sortBy": {
+          "@description": "Enter displayName to sort the returned responses by this attribute. The sorting is not case-sensitive. Only the displayName value is supported. Otherwise resources are sorted by last_modified by default. The parameter sorts the results either ascending or descending as defined by the sortOrder parameter.",
+          "type": "cds.String",
+          "@openapi.in": "query"
+        }
+      },
+      "@Common.Label": "SCIM groups - role collections",
+      "@Core.Description": "Returns role collections of the current subaccount.",
+      "@Core.LongDescription": "Returns all role collections of the current subaccount. The System for Cross-domain Identity Management (SCIM) interface for groups supplements the relevant UAA [groups](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#groups) interface. Groups in the Authorization and Trust Management service are mapped to role collections.",
+      "@openapi.path": "/Groups",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroups"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Groups_": {
+      "kind": "function",
+      "params": {
+        "Id": {
+          "@description": "The ID of the role collection.",
+          "type": "cds.String",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "SCIM groups - role collections",
+      "@Core.Description": "Returns a specific role collection.",
+      "@Core.LongDescription": "Returns a role collection specified by the ID. The System for Cross-domain Identity Management (SCIM) interface for groups supplements the relevant UAA [groups](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#groups) interface. Groups in the Authorization and Trust Management service are mapped to role collections.",
+      "@openapi.path": "/Groups/{Id}",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroup"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Groups__put": {
+      "kind": "action",
+      "params": {
+        "Id": {
+          "@description": "The ID of the role collection.",
+          "type": "cds.String",
+          "@openapi.in": "path"
+        },
+        "body": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroup",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "SCIM groups - role collections",
+      "@Core.Description": "Updates or deletes the members or description of a role collection.",
+      "@Core.LongDescription": "Adds or removes the members of an existing role collection specified by the ID. You can also update the description of the role collection. Provide an integer value in the If-Match field. The System for Cross-domain Identity Management (SCIM) interface for groups supplements the relevant UAA [groups](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#groups) interface.",
+      "@openapi.method": "PUT",
+      "@openapi.path": "/Groups/{Id}",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroup"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Groups__patch": {
+      "kind": "action",
+      "params": {
+        "Id": {
+          "@description": "The ID of the role collection.",
+          "type": "cds.String",
+          "@openapi.in": "path"
+        },
+        "body": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroupPatch",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "SCIM groups - role collections",
+      "@Core.Description": "Updates members or description of a role collection.",
+      "@Core.LongDescription": "Adds or removes members from an existing role collection specified by the role collection ID. You can also update the description of the role collection. Provide an integer in the If-Match field. The System for Cross-domain Identity Management (SCIM) interface for groups supplements the relevant UAA [groups](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#groups) interface.",
+      "@openapi.method": "PATCH",
+      "@openapi.path": "/Groups/{Id}",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroupPatch"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Users": {
+      "kind": "function",
+      "params": {
+        "count": {
+          "@description": "Specifies the maximum number of search results per page. The default value is 100. The service returns a maximum of 500 results.",
+          "type": "cds.Integer",
+          "@openapi.in": "query"
+        },
+        "startIndex": {
+          "@description": "Specifies the index of the first response page in the current set of search results.",
+          "type": "cds.Integer",
+          "@openapi.in": "query"
+        },
+        "sortOrder": {
+          "@description": "Specifies the sort order for the query results either ascending or descending for the attribute defined by the sortBy parameter. The default value is ascending.",
+          "type": "cds.String",
+          "@openapi.in": "query"
+        },
+        "sortBy": {
+          "@description": "Specifies the attribute to sort the returned responses. Sorts the results either ascending or descending as defined by the sortOrder parameter.",
+          "type": "cds.String",
+          "@openapi.in": "query"
+        },
+        "filter": {
+          "@description": "Specifies a filter query applied to an attribute of a user. If the filter query is true, then the user is included in the returned response. Each filter query includes an attribute, an operator, and a value. Supported operators are eq (equal), co (contains). sw (starts with), pr (present or has value), gt (greater than), ge (greater than or equal), lt (less than), and le (less than or euqal).",
+          "type": "cds.String",
+          "@openapi.in": "query"
+        }
+      },
+      "@Common.Label": "SCIM users - shadow users",
+      "@Core.Description": "Returns users of the current subaccount.",
+      "@Core.LongDescription": "Returns all shadow users of the current subaccount. By default, the system creates shadow users during authentication. You can disable automatic creation of shadow users. When you use a system to provision identities, we recommend that you switch off automatic creation of shadow users for all identity providers. <br/>For more information, see [Switch Off Automatic Creation of Shadow Users](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/d8525671e8b14147b96ef497e1e1af80.html). <br/>The System for Cross-domain Identity Management (SCIM) interface for users supplements the relevant UAA [users](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#users) interface.",
+      "@openapi.path": "/Users",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUsers"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Users_post": {
+      "kind": "action",
+      "params": {
+        "body": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUserPOST_PUT",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "SCIM users - shadow users",
+      "@Core.Description": "Creates a user.",
+      "@Core.LongDescription": "Creates a user with the properties specified in the body. **To create a group membership (assign role collections), use the endpoint [/Groups/{Id}/members](https://docs.cloudfoundry.org/api/uaa/version/74.4.0/index.html#add-member)**.",
+      "@openapi.path": "/Users",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUserPOST_PUT"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Users_": {
+      "kind": "function",
+      "params": {
+        "Id": {
+          "@description": "The ID of the user.",
+          "type": "cds.String",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "SCIM users - shadow users",
+      "@Core.Description": "Returns a specific user.",
+      "@Core.LongDescription": "Returns a user specified by the user ID (The ID of the user). By default, the system creates shadow users during authentication. You can disable automatic creation of shadow users. When you use a system to provision identities, we recommend that you switch off automatic creation of shadow users for all identity providers. <br/>For more information, see [Switch Off Automatic Creation of Shadow Users](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/d8525671e8b14147b96ef497e1e1af80.html). <br/>The System for Cross-domain Identity Management (SCIM) interface for users supplements the relevant UAA [users](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#users) interface.",
+      "@openapi.path": "/Users/{Id}",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUser"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Users__put": {
+      "kind": "action",
+      "params": {
+        "Id": {
+          "@description": "The ID of the user.",
+          "type": "cds.String",
+          "@openapi.in": "path"
+        },
+        "body": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUserPOST_PUT",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "SCIM users - shadow users",
+      "@Core.Description": "Updates the entire user.",
+      "@Core.LongDescription": "Updates all fields of a user specified by the user ID. **To update a group membership (assign role collections), use the endpoint [/Groups/{Id}/members](https://docs.cloudfoundry.org/api/uaa/version/74.4.0/index.html#add-member)**. By default, the system creates shadow users during authentication. You can disable automatic creation of shadow users. When you use a system to provision identities, we recommend that you switch off automatic creation of shadow users for all identity providers. <br/>For more information, see [Switch Off Automatic Creation of Shadow Users](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/d8525671e8b14147b96ef497e1e1af80.html). <br/>If automatic creation is switched off, a user can't log in until the administrator creates a shadow user for the user with the PUT method. The System for Cross-domain Identity Management (SCIM) interface for users supplements the relevant UAA [users](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#users) interface.",
+      "@openapi.method": "PUT",
+      "@openapi.path": "/Users/{Id}",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUserPOST_PUT"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Users__delete": {
+      "kind": "action",
+      "params": {
+        "Id": {
+          "@description": "The ID of the user.",
+          "type": "cds.String",
+          "@openapi.in": "path"
+        }
+      },
+      "@Common.Label": "SCIM users - shadow users",
+      "@Core.Description": "Deletes a specific user.",
+      "@Core.LongDescription": "Deletes a user specified by the user ID. By default, the system creates shadow users during authentication. You can disable automatic creation of shadow users. When you use a system to provision identities, we recommend that you switch off automatic creation of shadow users for all identity providers. <br/>For more information, see [Switch Off Automatic Creation of Shadow Users](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/d8525671e8b14147b96ef497e1e1af80.html). <br/>If automatic creation is switched off, a user can't log in until the administrator creates a shadow user for the user. Data privacy regulations or policies may require you to delete shadow users, for example, when the user has left your organization. The System for Cross-domain Identity Management (SCIM) interface for users supplements the relevant UAA [users](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#users) interface.",
+      "@openapi.method": "DELETE",
+      "@openapi.path": "/Users/{Id}",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUser"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.Users__patch": {
+      "kind": "action",
+      "params": {
+        "Id": {
+          "@description": "The id parameter of the user.",
+          "type": "cds.String",
+          "@openapi.in": "path"
+        },
+        "body": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUserPOST_PUT",
+          "@openapi.in": "body"
+        }
+      },
+      "@Common.Label": "SCIM users - shadow users",
+      "@Core.Description": "Updates specific fields of a user.",
+      "@Core.LongDescription": "Updates only the specified fields of a user specified by the user ID. **To update a group membership (assign role collections), use the endpoint [/Groups/{Id}/members](https://docs.cloudfoundry.org/api/uaa/version/74.4.0/index.html#add-member)**. By default, the system creates shadow users during authentication. You can disable automatic creation of shadow users. When you use a system to provision identities, we recommend that you switch off automatic creation of shadow users for all identity providers. <br/>For more information, see [Switch Off Automatic Creation of Shadow Users](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/d8525671e8b14147b96ef497e1e1af80.html). <br/>The System for Cross-domain Identity Management (SCIM) interface for users supplements the relevant UAA [users](https://docs.cloudfoundry.org/api/uaa/version/74.0.0/index.html#users) interface.",
+      "@openapi.method": "PATCH",
+      "@openapi.path": "/Users/{Id}",
+      "returns": {
+        "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUser"
+      }
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Approval": {
+      "@title": "Approval",
+      "elements": {
+        "clientId": {
+          "@description": "The client id on the approval. Represents the application this approval or denial was for.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "cloud_controller"
+        },
+        "expiresAt": {
+          "type": "cds.Timestamp"
+        },
+        "lastUpdatedAt": {
+          "type": "cds.Timestamp"
+        },
+        "scope": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "cloud_controller.write"
+        },
+        "status": {
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "APPROVED": {},
+            "DENIED": {}
+          }
+        },
+        "userId": {
+          "@description": "The ID of the user.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "ef4772b9-3295-4d12-af66-ef07fce21227"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.authorization_error": {
+      "elements": {
+        "error": {
+          "type": "cds.String"
+        },
+        "error_description": {
+          "type": "cds.String"
+        },
+        "scope": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Email": {
+      "@title": "Email",
+      "elements": {
+        "type": {
+          "type": "cds.String"
+        },
+        "value": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "john.miller@example.com"
+        },
+        "primary": {
+          "@description": "Set to true if this is the user's primary email address.",
+          "type": "cds.Boolean"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.generic_error": {
+      "elements": {
+        "error_description": {
+          "type": "cds.String"
+        },
+        "error": {
+          "type": "cds.String"
+        },
+        "message": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Group": {
+      "@title": "Group",
+      "elements": {
+        "display": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Administrators"
+        },
+        "value": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Administrators"
+        },
+        "type": {
+          "@description": "Membership type. DIRECT means the user is directly associated with the group. INDIRECT means that the membership is derived from a nested group.",
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "DIRECT": {},
+            "INDIRECT": {}
+          },
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "DIRECT"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.method_error": {
+      "elements": {
+        "timestamp": {
+          "type": "cds.String"
+        },
+        "status": {
+          "type": "cds.Integer"
+        },
+        "error": {
+          "type": "cds.String"
+        },
+        "message": {
+          "type": "cds.String"
+        },
+        "path": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Name": {
+      "@title": "Name",
+      "elements": {
+        "familyName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Miller"
+        },
+        "givenName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "John"
+        },
+        "honorificPrefix": {
+          "type": "cds.String"
+        },
+        "honorificSuffix": {
+          "type": "cds.String"
+        },
+        "formatted": {
+          "type": "cds.String"
+        },
+        "middleName": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.PhoneNumber": {
+      "@title": "PhoneNumber",
+      "elements": {
+        "value": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "123456789"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroups": {
+      "elements": {
+        "resources": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroup"
+          }
+        },
+        "startIndex": {
+          "@description": "Specifies the index of the first resource in the current set of search results.",
+          "type": "cds.Integer",
+          "default": {
+            "val": 1
+          }
+        },
+        "itemsPerPage": {
+          "@description": "Specifies the maximum number of search results returned per response page.",
+          "type": "cds.Integer",
+          "default": {
+            "val": 100
+          }
+        },
+        "totalResults": {
+          "@description": "Specifies the total number of results matching the query. The service returns a maximum of 500 results.",
+          "type": "cds.Integer",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 235
+        },
+        "schemas": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type0"
+          }
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroup": {
+      "@title": "ScimGroup",
+      "elements": {
+        "id": {
+          "@description": "The group ID of a SCIM group.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Administrators"
+        },
+        "meta": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimMeta"
+        },
+        "displayName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Administrators"
+        },
+        "zoneId": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "5cef7d08-471e-47c4-9695-ad5ef44b4355"
+        },
+        "description": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "This role collection includes the administrator and viewer role."
+        },
+        "members": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroupMember"
+          }
+        },
+        "schemas": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type1"
+          }
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroupMember": {
+      "@title": "ScimGroupMember",
+      "elements": {
+        "origin": {
+          "@description": "The identity provider hosting the users. For the default identity provider, use sap.default. Subaccounts created before October 2020 return ldap as the default identity provider. The system accepts both sap.default and ldap for the default identity provider, but returns sap.default or ldap depending on when the subaccount was created.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "sap.default"
+        },
+        "type": {
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "USER": {}
+          },
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "USER"
+        },
+        "value": {
+          "@description": "The ID of a specific user. User IDs can be found using the \"/Users\" endpoint.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "ef4772b9-3295-4d12-af66-ef07fce21227"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimMeta": {
+      "@title": "ScimMeta",
+      "elements": {
+        "attributes": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "version": {
+          "type": "cds.Integer",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 1
+        },
+        "created": {
+          "type": "cds.Timestamp"
+        },
+        "lastModified": {
+          "type": "cds.Timestamp"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUsers": {
+      "elements": {
+        "resources": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUser"
+          }
+        },
+        "startIndex": {
+          "@description": "Specifies the index of the first response page in the current set of search results.",
+          "type": "cds.Integer",
+          "default": {
+            "val": 1
+          }
+        },
+        "itemsPerPage": {
+          "@description": "Specifies the maximum number of search results returned per response page.",
+          "type": "cds.Integer",
+          "default": {
+            "val": 100
+          }
+        },
+        "totalResults": {
+          "@description": "Specifies the total number of results matching the query. The service returns a maximum of 500 results.",
+          "type": "cds.Integer",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 235
+        },
+        "schemas": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type2"
+          }
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUser": {
+      "@title": "ScimUser",
+      "elements": {
+        "id": {
+          "@description": "The user ID of a SCIM user.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "ef4772b9-3295-4d12-af66-ef07fce21227"
+        },
+        "externalId": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "D123456"
+        },
+        "meta": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimMeta"
+        },
+        "userName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "john.miller@example.com"
+        },
+        "name": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Name"
+        },
+        "emails": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Email"
+          }
+        },
+        "groups": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Group"
+          }
+        },
+        "approvals": {
+          "@description": "A list of approval decisions made by this user. Approvals record the user's explicit approval or rejection for an application's request for delegated permissions.",
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Approval"
+          }
+        },
+        "active": {
+          "type": "cds.Boolean"
+        },
+        "verified": {
+          "type": "cds.Boolean"
+        },
+        "origin": {
+          "@description": "The identity provider hosting the users. For the default identity provider, use sap.default. Subaccounts created before October 2020 return ldap as the default identity provider. The system accepts both sap.default and ldap for the default identity provider, but returns sap.default or ldap depending on when the subaccount was created.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "sap.default"
+        },
+        "zoneId": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "5cef7d08-471e-47c4-9695-ad5ef44b4355"
+        },
+        "displayName": {
+          "type": "cds.String"
+        },
+        "locale": {
+          "type": "cds.String"
+        },
+        "nickName": {
+          "type": "cds.String"
+        },
+        "passwordLastModified": {
+          "type": "cds.Timestamp"
+        },
+        "previousLogonTime": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 1588056537011
+        },
+        "lastLogonTime": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 1589284136890
+        },
+        "schemas": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type3"
+          }
+        },
+        "phoneNumbers": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.PhoneNumber"
+          }
+        },
+        "preferredLanguage": {
+          "type": "cds.String"
+        },
+        "profileUrl": {
+          "type": "cds.String"
+        },
+        "salt": {
+          "type": "cds.String"
+        },
+        "timezone": {
+          "type": "cds.String"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "userType": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimUserPOST_PUT": {
+      "@title": "ScimUserPOST_PUT",
+      "elements": {
+        "id": {
+          "@description": "The user ID of a SCIM user.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "ef4772b9-3295-4d12-af66-ef07fce21227"
+        },
+        "externalId": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "D123456"
+        },
+        "meta": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimMeta"
+        },
+        "userName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "john.miller@example.com"
+        },
+        "name": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Name"
+        },
+        "emails": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Email"
+          }
+        },
+        "approvals": {
+          "@description": "A list of approval decisions made by this user. Approvals record the user's explicit approval or rejection for an application's request for delegated permissions.",
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.Approval"
+          }
+        },
+        "active": {
+          "type": "cds.Boolean"
+        },
+        "verified": {
+          "type": "cds.Boolean"
+        },
+        "origin": {
+          "@description": "The identity provider hosting the users. For the default identity provider, use sap.default. Subaccounts created before October 2020 return ldap as the default identity provider. The system accepts both sap.default and ldap for the default identity provider, but returns sap.default or ldap depending on when the subaccount was created.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "sap.default"
+        },
+        "zoneId": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "5cef7d08-471e-47c4-9695-ad5ef44b4355"
+        },
+        "displayName": {
+          "type": "cds.String"
+        },
+        "locale": {
+          "type": "cds.String"
+        },
+        "nickName": {
+          "type": "cds.String"
+        },
+        "passwordLastModified": {
+          "type": "cds.Timestamp"
+        },
+        "previousLogonTime": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 1588056537011
+        },
+        "lastLogonTime": {
+          "type": "cds.Integer64",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": 1589284136890
+        },
+        "schemas": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type4"
+          }
+        },
+        "phoneNumbers": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.PhoneNumber"
+          }
+        },
+        "preferredLanguage": {
+          "type": "cds.String"
+        },
+        "profileUrl": {
+          "type": "cds.String"
+        },
+        "salt": {
+          "type": "cds.String"
+        },
+        "timezone": {
+          "type": "cds.String"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "userType": {
+          "type": "cds.String"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroupPatch": {
+      "@title": "ScimGroupPatch",
+      "elements": {
+        "id": {
+          "@description": "The group ID of a SCIM group.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Administrators"
+        },
+        "meta": {
+          "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimMeta"
+        },
+        "displayName": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "Administrators"
+        },
+        "zoneId": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "5cef7d08-471e-47c4-9695-ad5ef44b4355"
+        },
+        "description": {
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "This role collection includes the administrator and viewer role."
+        },
+        "members": {
+          "items": {
+            "type": "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroupMemberPatch"
+          }
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM___types.ScimGroupMemberPatch": {
+      "@title": "ScimGroupMemberPatch",
+      "elements": {
+        "origin": {
+          "@description": "The identity provider hosting the user. For the default identity provider, use sap.default. Subaccounts created before October 2020 return ldap as the default identity provider. The system accepts both sap.default and ldap for the default identity provider, but returns sap.default or ldap depending on when the subaccount was created.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "sap.default"
+        },
+        "type": {
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "USER": {}
+          },
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "USER"
+        },
+        "value": {
+          "@description": "The ID of a specific user. User IDs can be found using the \"/Users\" endpoint.",
+          "type": "cds.String",
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "ef4772b9-3295-4d12-af66-ef07fce21227"
+        },
+        "operation": {
+          "@description": "Use this parameter to add or remove users from a group.",
+          "type": "cds.String",
+          "@assert.range": true,
+          "enum": {
+            "delete": {},
+            "create": {}
+          },
+          "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+          "@Core.Example.Value": "delete"
+        }
+      },
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type0": {
+      "type": "cds.String",
+      "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+      "@Core.Example.Value": "urn:scim:schemas:core:1.0",
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type1": {
+      "type": "cds.String",
+      "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+      "@Core.Example.Value": "urn:scim:schemas:core:1.0",
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type2": {
+      "type": "cds.String",
+      "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+      "@Core.Example.Value": "urn:scim:schemas:core:1.0",
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type3": {
+      "type": "cds.String",
+      "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+      "@Core.Example.Value": "urn:scim:schemas:core:1.0",
+      "kind": "type"
+    },
+    "User.Management._System.for.Cross.domain.Identity.Management._SCIM__.anonymous.type4": {
+      "type": "cds.String",
+      "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+      "@Core.Example.Value": "urn:scim:schemas:core:1.0",
+      "kind": "type"
+    }
+  },
+  "meta": {
+    "creator": "cds-import-openapi"
+  }
+}
